@@ -1,0 +1,12 @@
+mysql:
+    datasource:
+        test:
+            jdbc-url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2b8&allowMultiQueries=true
+            username: root
+            password: root
+            driver-class-name: com.mysql.cj.jdbc.Driver
+        student:
+            jdbc-url: jdbc:mysql://localhost:3306/student_management?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2b8&allowMultiQueries=true
+            username: root
+            password: root
+            driver-class-name: com.mysql.cj.jdbc.Driver
