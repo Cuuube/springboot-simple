@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import com.zxod.springbootsimple.mapper.student.SScrawlRuleMapper;
 import com.zxod.springbootsimple.mapper.test.ScrawlRuleMapper;
+import com.zxod.springbootsimple.module.Hello;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,12 @@ public class TestController {
     @Autowired
     private SScrawlRuleMapper sscrawlRuleMapper;
 
+    @Autowired
+    private Hello proxyHello;
+
     @GetMapping("/ping")
     public String ping() {
+        proxyHello.sayHello();
         return "pong";
     }
 

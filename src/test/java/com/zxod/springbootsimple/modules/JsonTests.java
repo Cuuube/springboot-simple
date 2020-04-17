@@ -1,0 +1,124 @@
+package com.zxod.springbootsimple.modules;
+
+import java.util.Arrays;
+import java.util.List;
+
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.SerializeConfig;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.zxod.springbootsimple.DemoApplicationTests;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = DemoApplicationTests.class)
+@ActiveProfiles("unittest")
+public class JsonTests {
+    @Test
+    public void testJson() {
+        TestObj1 obj1 = new TestObj1();
+        obj1.setId(1234124312321312L);
+        obj1.setName("nihao");
+        obj1.setViaNames(Arrays.asList("kakakaka"));
+        obj1.setSub(
+            TestInnerObj1.builder()
+                .score(3.3d)
+                .name("inner1")
+                .build()
+        );
+
+        String obj1Str = JSONObject.toJSONString(obj1);
+        System.out.print(obj1Str); // "{"id":1234124312321312,"name":"nihao","sub":{"name":"inner1","score":3.3},"viaNames":["kakakaka"]}"
+        TestObj1 recover1 = JSONObject.toJavaObject(
+            JSONObject.parseObject(obj1Str),
+            TestObj1.class
+        ); // 完整
+
+
+        TestObj2 obj2 = new TestObj2();
+        obj2.setId(1234124312321312L);
+        obj2.setName("nihao");
+        obj2.setViaNames(Arrays.asList("kakakaka"));
+        obj2.setSub(
+            TestInnerObj1.builder()
+                .score(3.3d)
+                .name("inner1")
+                .build()
+        );
+
+        String obj2Str = JSONObject.toJSONString(obj2);
+        System.out.print(obj2Str); // "{"id":1234124312321312,"name":"nihao","sub":{"name":"inner1","score":3.3},"via_names":["kakakaka"]}"
+
+        TestObj2 recover2 = JSONObject.toJavaObject(
+            JSONObject.parseObject(obj2Str),
+            TestObj2.class
+        ); // 完整
+
+
+        TestObj3 obj3 = new TestObj3();
+        obj3.setFirstName("nihao");
+        obj3.setLastName("kakakaka");
+
+        // 驼峰转下划线
+        // SerializeConfig config = new SerializeConfig();
+        // config.put("propertyNamingStrategy", PropertyNamingStrategy.SnakeCaseStrategy);
+        //  propertyNamingStrategy = PropertyNamingStrategy.SnakeCase;
+        String obj3Str = JSONObject.toJSONString(obj3);
+        System.out.print(obj3Str);
+
+        TestObj3 recover3 = JSONObject.toJavaObject(
+            JSONObject.parseObject(obj3Str),
+            TestObj3.class
+        ); // 完整
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class TestInnerObj1 {
+        private double score;
+        private String name;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class TestObj1 {
+        private long id;
+        private String name;
+        private List<String> viaNames;
+        private TestInnerObj1 sub;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class TestObj2 {
+        @JSONField(serialize = false)
+        private long id;
+        private String name;
+        @JSONField(name = "via_names")
+        private List<String> viaNames;
+        private TestInnerObj1 sub;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class TestObj3 {
+        private String firstName;
+        private String lastName;
+    }
+}
