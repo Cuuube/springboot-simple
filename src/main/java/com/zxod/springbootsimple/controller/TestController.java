@@ -7,6 +7,7 @@ import com.zxod.springbootsimple.mapper.test.ScrawlRuleMapper;
 import com.zxod.springbootsimple.module.Hello;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,6 +62,14 @@ public class TestController {
         @RequestParam("rule") String rule
     ) {
         scrawlRuleMapper.updateRuleById(id, rule);
+        return null;
+    }
+
+    @DeleteMapping("/scrawl_rules")
+    public Object deleteScrawlRules(
+        @RequestParam("id") Integer id
+    ) {
+        scrawlRuleMapper.deleteById(id);
         return null;
     }
 }

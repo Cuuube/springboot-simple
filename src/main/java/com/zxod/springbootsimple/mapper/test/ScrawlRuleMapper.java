@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.zxod.springbootsimple.entity.ScrawlRule;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -19,4 +20,7 @@ public interface ScrawlRuleMapper {
 
     @Update("update scrawl_rule set rule = #{rule,jdbcType=VARCHAR} where id = #{id, jdbcType=INTEGER}")
     void updateRuleById(Integer id, String rule);
+
+    @Delete("delete from scrawl_rule where id = #{id,jdbcType=INTEGER}")
+    void deleteById(Integer id);
 }
