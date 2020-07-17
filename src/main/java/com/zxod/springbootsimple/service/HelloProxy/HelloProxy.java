@@ -9,30 +9,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class HelloProxy { //implements MethodInterceptor {
+public class HelloProxy {
 
     @Resource
     Hello hello;
-
-    @Resource
-    HelloBeforeAdvice helloBeforeAdvice;
-
-    @Resource
-    HelloAfterAdvice helloAfterAdvice;
 
     @Bean(name = "proxyHello")
     public Hello getHelloProxy() {
         ProxyFactory proxyFactory = new ProxyFactory();
         proxyFactory.setTarget(hello);
-        proxyFactory.addAdvice(helloBeforeAdvice);
-        proxyFactory.addAdvice(helloAfterAdvice);
+        proxyFactory.addAdvice(new HelloBeforeAdvice());
+        proxyFactory.addAdvice(new HelloAfterAdvice());
         return (Hello) proxyFactory.getProxy();
     }
-
-    // @Override
-	// public Object invoke(MethodInvocation invocation) throws Throwable {
-        
-
-    // }
-
 }

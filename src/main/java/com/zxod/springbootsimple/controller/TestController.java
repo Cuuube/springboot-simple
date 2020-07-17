@@ -28,9 +28,15 @@ public class TestController {
     @Autowired
     private Hello proxyHello;
 
+    @Autowired
+    private Hello hello;
+
     @GetMapping("/ping")
     public String ping() {
-        proxyHello.sayHello();
+        hello.sayHello();
+        hello.sayHi();
+        hello.sayHo("Tom");
+        hello.sayError();
         return "pong";
     }
 
