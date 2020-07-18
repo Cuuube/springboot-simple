@@ -5,6 +5,7 @@ import java.util.Arrays;
 import com.zxod.springbootsimple.mapper.student.SScrawlRuleMapper;
 import com.zxod.springbootsimple.mapper.test.ScrawlRuleMapper;
 import com.zxod.springbootsimple.module.Hello;
+import com.zxod.springbootsimple.module.LazyModule;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,12 +32,16 @@ public class TestController {
     @Autowired
     private Hello hello;
 
+    @Autowired
+    private LazyModule lazyModule;
+
     @GetMapping("/ping")
     public String ping() {
         hello.sayHello();
         hello.sayHi();
         hello.sayHo("Tom");
         hello.sayError();
+        lazyModule.sayHello();
         return "pong";
     }
 

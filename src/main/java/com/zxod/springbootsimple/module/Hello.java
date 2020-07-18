@@ -26,4 +26,8 @@ public class Hello {
         System.out.println("lllll");
         throw new TypeException("出错啦出错啦！！");
     }
+
+    public void simpleSayHello() {
+        System.out.println("hello without anything");
+    }
 }
