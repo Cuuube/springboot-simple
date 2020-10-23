@@ -10,3 +10,7 @@ mysql:
             username: root
             password: red2028
             driver-class-name: com.mysql.cj.jdbc.Driver
+scheduling:
+    task:
+        testTask:
+            cron: 0 */1 * * * ?
