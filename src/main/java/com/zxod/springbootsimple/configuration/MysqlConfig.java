@@ -31,7 +31,7 @@ public class MysqlConfig {
     public SqlSessionFactory testSqlSessionFactory(@Qualifier("testDataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
-        // bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mybatis/mapper/test/*.xml"));
+        // bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:sql/mapper/test/**/*.xml"));
 
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
         configuration.setMapUnderscoreToCamelCase(true);

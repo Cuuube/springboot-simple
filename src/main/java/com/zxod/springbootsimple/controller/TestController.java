@@ -61,7 +61,8 @@ public class TestController {
         // List<ScrawlRule> dataList = scrawlRuleMapper.getAll();
         return Arrays.asList(
             scrawlRuleMapper.getAll(),
-            sscrawlRuleMapper.getAll()
+            // sscrawlRuleMapper.getAll(),
+            sscrawlRuleMapper.selectAll()
         );
     }
 

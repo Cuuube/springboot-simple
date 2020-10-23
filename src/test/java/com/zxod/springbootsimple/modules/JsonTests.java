@@ -1,25 +1,22 @@
 package com.zxod.springbootsimple.modules;
 
-import java.util.Arrays;
-import java.util.List;
-
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.SerializeConfig;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.zxod.springbootsimple.DemoApplicationTests;
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DemoApplicationTests.class)
@@ -120,5 +117,33 @@ public class JsonTests {
     public static class TestObj3 {
         private String firstName;
         private String lastName;
+    }
+
+    @Test
+    public void testDateJsonConvert() {
+        TestDateObj1 a = new TestDateObj1();
+        a.setDd(new Date());
+
+        String jsonStr = JSONObject.toJSONString(a);
+        System.out.print(jsonStr);
+
+        TestDateObj2 b = JSON.toJavaObject(
+            JSONObject.parseObject(jsonStr), TestDateObj2.class);
+        System.out.print(b.getDd());
+        System.out.print(JSONObject.toJSONString(b));
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class TestDateObj1 {
+        private Date dd;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class TestDateObj2 {
+        private Long dd;
     }
 }
