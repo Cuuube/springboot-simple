@@ -146,4 +146,14 @@ public class JsonTests {
     public static class TestDateObj2 {
         private Long dd;
     }
+
+    @Test
+    public void testJsonStrMatch() {
+        String jsonStr = "{\"privateByUser\": \"true\"}";
+        String clip = "\"privateByUser\": \"true\"";
+        System.out.println(jsonStr.contains(clip));
+
+        JSONObject obj = JSONObject.parseObject(jsonStr);
+        System.out.println(obj.getBooleanValue("privateByUser"));
+    }
 }
