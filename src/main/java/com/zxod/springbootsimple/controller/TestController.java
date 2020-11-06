@@ -2,6 +2,8 @@ package com.zxod.springbootsimple.controller;
 
 import com.zxod.springbootsimple.mapper.student.SScrawlRuleMapper;
 import com.zxod.springbootsimple.mapper.test.ScrawlRuleMapper;
+import com.zxod.springbootsimple.module.CacheModule;
+import com.zxod.springbootsimple.module.CacheModule.TestArgs;
 import com.zxod.springbootsimple.module.Hello;
 import com.zxod.springbootsimple.module.LazyModule;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,9 @@ public class TestController {
     @Autowired
     private LazyModule lazyModule;
 
+    @Autowired
+    private CacheModule cacheModule;
+
     @GetMapping("/ping")
     public String ping() {
         hello.sayHello();
@@ -55,6 +60,22 @@ public class TestController {
         ret.put("string", "hahaha");
         return ret;
     }
+
+    @GetMapping("/testCache")
+    public Object testCache(
+        @RequestParam("aaa") String aaa,
+        @RequestParam("bbb") Integer bbb
+    ) {
+        // return cacheModule.testCache();
+        // return cacheModule.testCache2(aaa, bbb);
+        return cacheModule.testCache3(new TestArgs(aaa, bbb));
+    }
+
+    @GetMapping("/testCacheC")
+    public Object testCacheC() {
+        return cacheModule.clearCache();
+    }
+
 
     @GetMapping("/scrawl_rules")
     public Object getScrawlRules() {

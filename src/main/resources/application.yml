@@ -10,7 +10,16 @@ mysql:
             username: root
             password: red2028
             driver-class-name: com.mysql.cj.jdbc.Driver
+
 scheduling:
     task:
         testTask:
             cron: 0 */1 * * * ?
+
+redis:
+    localhost:
+        host: 0.0.0.0
+        port: 6379
+        database: 0
+        password: ""
+        timeout: 20000
