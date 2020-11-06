@@ -1,7 +1,6 @@
 package com.zxod.springbootsimple.module;
 
 import com.zxod.springbootsimple.innotation.Inno;
-
 import org.apache.ibatis.type.TypeException;
 import org.springframework.stereotype.Component;
 
@@ -12,12 +11,12 @@ public class Hello {
     }
 
     @Inno(name = "hahahah")
-    public void sayHi() {
+    public void sayHo() {
         System.out.print("Hi");
     }
 
     @Inno(name = "hohoho")
-    public void sayHo(String name) {
+    public void sayHi(String name) {
         System.out.println(String.format("%s, HO!", name));
     }
 

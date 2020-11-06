@@ -2,6 +2,7 @@ package com.zxod.springbootsimple.controller;
 
 import com.zxod.springbootsimple.mapper.student.SScrawlRuleMapper;
 import com.zxod.springbootsimple.mapper.test.ScrawlRuleMapper;
+import com.zxod.springbootsimple.module.AsyncModule;
 import com.zxod.springbootsimple.module.CacheModule;
 import com.zxod.springbootsimple.module.CacheModule.TestArgs;
 import com.zxod.springbootsimple.module.Hello;
@@ -41,14 +42,24 @@ public class TestController {
     @Autowired
     private CacheModule cacheModule;
 
+    @Autowired
+    private AsyncModule asyncModule;
+
     @GetMapping("/ping")
     public String ping() {
         hello.sayHello();
-        hello.sayHi();
-        hello.sayHo("Tom");
-        hello.sayError();
+        hello.sayHo();
+        hello.sayHi("Tom");
+        // hello.sayError();
         lazyModule.sayHello();
-        return "pong";
+        asyncModule.voidAsyncMethod();
+        String result = "";
+        try {
+            asyncModule.asyncMethodWithReturn(); // 不get只会异步执行，不阻塞；加了get会等待get结束
+            result = asyncModule.asyncMethodWithReturn().get();
+        } catch (Exception e) {
+        }
+        return result; //"pong";
     }
 
     @GetMapping("/test")

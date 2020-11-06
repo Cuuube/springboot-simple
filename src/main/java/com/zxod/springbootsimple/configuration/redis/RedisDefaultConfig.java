@@ -1,4 +1,4 @@
-package com.zxod.springbootsimple.configuration;
+package com.zxod.springbootsimple.configuration.redis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

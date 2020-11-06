@@ -5,7 +5,6 @@ import lombok.Data;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -44,15 +43,6 @@ public class CacheModule {
         return ImmutableMap.of("key", "putCache!");
     }
 
-    @Async
-    public void asyncMethod() {
-        try {
-            Thread.sleep(2000);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println("asyncMethod done!！");
-    }
 
     @Data
     public static class TestArgs {
