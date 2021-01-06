@@ -16,9 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 @RestController
 @RequestMapping("/api")
@@ -45,6 +49,9 @@ public class TestController {
     @Autowired
     private AsyncModule asyncModule;
 
+    @Resource
+    private ExecutorService executorService;
+
     @GetMapping("/ping")
     public String ping() {
         hello.sayHello();
@@ -57,6 +64,32 @@ public class TestController {
         try {
             asyncModule.asyncMethodWithReturn(); // 不get只会异步执行，不阻塞；加了get会等待get结束
             result = asyncModule.asyncMethodWithReturn().get();
+
+            // 单独触发
+            Future fu1 = executorService.submit(() -> {
+                try {
+                    Thread.sleep(2000);
+                } catch (Exception e) {
+                }
+                System.out.println("手动出发async！ done!！");
+            });
+            Future fu2 = executorService.submit(() -> {
+                try {
+                    Thread.sleep(2000);
+                } catch (Exception e) {
+                }
+                System.out.println("手动出发async！ done!！");
+            });
+            Future fu3 = executorService.submit(() -> {
+                try {
+                    Thread.sleep(2000);
+                } catch (Exception e) {
+                }
+                System.out.println("手动出发async！ done!！");
+            });
+            fu1.get();
+            fu2.get();
+            fu3.get();
         } catch (Exception e) {
         }
         return result; //"pong";
