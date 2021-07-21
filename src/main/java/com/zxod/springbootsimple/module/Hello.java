@@ -2,12 +2,20 @@ package com.zxod.springbootsimple.module;
 
 import com.zxod.springbootsimple.innotation.Inno;
 import org.apache.ibatis.type.TypeException;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Hello {
     public void sayHello() {
         System.out.print("hello");
+    }
+
+    @Inno(name = "schedule")
+    @Scheduled(cron="*/5 * * * * ?")
+    public void testHello(){
+        // sayHi("Aliss");
+        System.out.println("schedule!!");
     }
 
     @Inno(name = "hahahah")

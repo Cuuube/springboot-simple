@@ -7,6 +7,9 @@ import com.zxod.springbootsimple.module.CacheModule;
 import com.zxod.springbootsimple.module.CacheModule.TestArgs;
 import com.zxod.springbootsimple.module.Hello;
 import com.zxod.springbootsimple.module.LazyModule;
+import org.neo4j.driver.Driver;
+import org.neo4j.driver.Result;
+import org.neo4j.driver.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,6 +55,9 @@ public class TestController {
     @Resource
     private ExecutorService executorService;
 
+    @Resource
+    private Driver driver;
+
     @GetMapping("/ping")
     public String ping() {
         hello.sayHello();
@@ -93,6 +99,16 @@ public class TestController {
         } catch (Exception e) {
         }
         return result; //"pong";
+    }
+
+    @GetMapping("/neo4j")
+    public Object testNeo4jDriver() {
+        Session session = driver.session();
+        // Query q = new Query();
+        Result result = session.run("MATCH (ee:Person)-[:KNOWS]-(friends) WHERE ee.name = \"Emil\" RETURN ee, friends");
+        // session.close();
+        // 返回值里包含ee和friends的结果，这里只用friends的结果。取ee的话，会有两个相同的ee
+        return result.list(v -> v.get("friends").asMap());
     }
 
     @GetMapping("/test")

@@ -1,7 +1,6 @@
 package com.zxod.springbootsimple.service.HelloProxy;
 
 import com.alibaba.fastjson.JSON;
-
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -10,7 +9,11 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
+import java.util.UUID;
 
 @Aspect
 @Component
@@ -53,10 +56,23 @@ public class HelloAspect {
     // 环绕，相当于before + after
     @Around("annoAspect()")
     public void ttt1(ProceedingJoinPoint joinPoint) throws Throwable {
+        String lockValue = UUID.randomUUID().toString();
+        System.out.println(lockValue);
+
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        Method method = signature.getMethod();
+        String methodName = method.getName();
+        String className = method.getDeclaringClass().getName();
+        System.out.println(className);
+        System.out.println(methodName);
         System.out.println(JSON.toJSONString(joinPoint.getArgs()));
+
         System.out.println("before by Annotation!");
-        joinPoint.proceed();
-        System.out.println("after by Annotation!");
+        if (false) {
+            joinPoint.proceed();
+            System.out.println("after by Annotation!");
+        }
+        
     }
 
     @AfterThrowing(pointcut = "annoAspect()", throwing = "e")
