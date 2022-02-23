@@ -1,5 +1,6 @@
 package com.zxod.springbootsimple.configuration;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
@@ -12,7 +13,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 @Configuration
-@EnableScheduling // 启用调度器
+@ConditionalOnExpression("${scheduling.enable}") // 根据配置文件，决定要不要启用调度器
+@EnableScheduling // 启动调度器
 public class SchedulerConfig implements SchedulingConfigurer {
 
     @Override

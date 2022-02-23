@@ -38,6 +38,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<version>1.18.22</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -89,6 +90,14 @@
             <artifactId>jedis</artifactId>
             <version>2.9.3</version>
         </dependency>
+		<!-- RocketMQ start-->
+		<!-- https://mvnrepository.com/artifact/org.apache.rocketmq/rocketmq-client -->
+		<dependency>
+			<groupId>org.apache.rocketmq</groupId>
+			<artifactId>rocketmq-client</artifactId>
+			<version>4.2.0</version>
+		</dependency>
+		<!-- RocketMQ end-->
 	</dependencies>
 
 	<build>

@@ -20,12 +20,12 @@ public class Hello {
 
     @Inno(name = "hahahah")
     public void sayHo() {
-        System.out.print("Hi");
+        System.out.print("Ho");
     }
 
-    @Inno(name = "hohoho")
+    // @Inno(name = "hohoho")
     public void sayHi(String name) {
-        System.out.println(String.format("%s, HO!", name));
+        System.out.println(String.format("Hi! %s!", name));
     }
 
     @Inno(name = "lololo")

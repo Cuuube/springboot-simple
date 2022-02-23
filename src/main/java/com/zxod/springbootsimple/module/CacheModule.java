@@ -31,7 +31,9 @@ public class CacheModule {
         return ImmutableMap.of("key", "testCache!", "aaa", arg.getAaa(), "bbb", arg.getBbb());
     }
 
-    @CacheEvict({"cache1", "cache2", "cache3"}) // 清除
+    // ???为什么不起作用？？TODO
+    // @CacheEvict({"cache1", "cache2", "cache3"}) // 清除
+    @CacheEvict("cache3") // 清除
     public Object clearCache() {
         System.out.println("clearCache!");
         return "clearCache!";
